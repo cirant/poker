@@ -10,7 +10,7 @@ class Dealer {
   start(){
     return new Promise((resolve,reject)=>{
       fetch(this.url,{
-        method: "POST",
+        method: "POST"
       })
       .then(response=>{
         if(!response.ok)
@@ -22,16 +22,26 @@ class Dealer {
         this.hash=res;
         resolve(res);
       })
-      .catch(e=>this.start());
-      })
+      .catch(e=>{
+          reject(e);
+      });
+    });
   }
 
   getCard(number){
     return new Promise((resolve,reject)=>{
+
       fetch(`${this.url}/${this.hash}/deal/${number}`)
-      .then(res=>res.json())
-      .then(data=>resolve(data));
-    })
+      .then(response=>{
+        if(!response.ok)
+          throw Error(response.statusText);
+        else
+          return response.json()
+      })
+      .then(data=>resolve(data))
+      .catch(e=>reject(e));
+    });
+
   }
 }
 
@@ -39,21 +49,53 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state={
+      hand_a: [],
+      hand_b: []
+    }
+
     this.dealer = new Dealer();
+
+    this.handlerStart = this.handlerStart.bind(this);
+    this.handlerGetCards = this.handlerGetCards.bind(this);
   }
 
   componentWillMount() {
-    this.dealer.start()
-    .then(res=>{
-      this.dealer.getCard(5).then(res=>console.log(res));
-    })
+    this.handlerStart();
   }
 
-  handlerGedCard(number){
-    
+  handlerGetCards(number){
+    this.dealer.getCard(number)
+    .then(res=>{
+
+      this.setState({
+        hand_a: res.splice(0,5),
+        hand_b: res.splice(0,5)
+      });
+
+      this.cards = res;
+    })
+    .catch(e=>{
+      this.handlerGetCards(number);
+    });
+  }
+
+  handlerStart(){
+    this.dealer.start()
+    .then(res=>{
+
+      this.handlerGetCards(52);
+
+    })
+    .catch(e=>{
+      console.log(">>>> error al start ",e);
+      this.handlerStart();
+    });
   }
 
   render() {
+
+    console.log("state ",this.state);
     return (
       <div className="App">
         <div className="App-header">
