@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ShowHandComponent from './components/showHandComponent';
 import './App.css';
 
 class Dealer {
@@ -98,12 +99,8 @@ class App extends Component {
     console.log("state ",this.state);
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React 2.0</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ShowHandComponent hand={this.state.hand_a} />
+        <ShowHandComponent hand={this.state.hand_b} />
       </div>
     );
   }
