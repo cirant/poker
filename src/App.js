@@ -48,32 +48,34 @@ class Dealer {
 
 class Poker {
 
+  // retorna mano ganadora
   checkWinner(player1, player2){
-    // console.log("verificar entre ",player1," y ",player2)
     this.result1 = this.orderHand(player1);
     this.result2 = this.orderHand(player2);
 
     const result = this.compare(this.result1,this.result2);
 
+    //retornar las manos de los dos jugadores por tener el mismo valor
     if(result===0)
       return {
         name: this.result1.name,
         hand: [player1,player2]
       };
     else if(result===1){
+      // mano mas alta es la del jugador 1
       return {
         name: this.result1.name,
         hand: [player1]
       } 
-    }else 
+    }else //mano mas alta es la del jugador 2
       return {
         name: this.result2.name,
         hand: [player2]
       } 
-    
 
   }
 
+  // compara cual es la mano ganadora
   compare(hand1,hand2){
     const ranking = [
       "High​ Card",
@@ -96,10 +98,10 @@ class Poker {
     }
   }
 
+  // compara cada valor hasta encontrar a un ganador 1 para el primer jugador y -1 para el segundo jugador, o retorna 0 si son iguales
   biggerArray(arr1,arr2){
 
     if(arr1[arr1.length-1]===arr2[arr1.length-1]){
-      console.log("son iguales");
       if(arr1.length===1 && arr2.length===1){
         return 0;
       }else{
@@ -113,6 +115,7 @@ class Poker {
 
   }
 
+  // Ordena las manos de menor a mayor y sustituye las letras por números para facilitar el manejo y comparación
   orderHand(hand){
     let numbers = [];
     let suit = [];
@@ -139,25 +142,26 @@ class Poker {
       return num1-num2;
     });
 
-    Array.prototype.repeated = function(){
-      var count = {};
-      for(var i = 0; i < this.length; i++){
-      if(!(this[i] in count))count[this[i]] = 0;
-      count[this[i]]++;
-      }
-      return count;
-    }
-
     if(Object.keys(suit).length===1){
-      console.log("mismo suit")
       return this.getNameSameSuit(numbers);
     }
     else{
-      return this.getNameDifferentSuit(numbers.repeated());
+      return this.getNameDifferentSuit(this.getRepeated(numbers));
     }
     
   }
 
+  // retorna un objeto con los numeros repetidos en un array y cuantas veces estan repetido
+  getRepeated(arr){
+    let count = {};
+    for(var i = 0; i < arr.length; i++){
+      if(!(arr[i] in count))count[arr[i]] = 0;
+      count[arr[i]]++;
+      }
+    return count;
+  }
+
+  // retorna el nombre y los valores de la mano ganadora si las cartas son de distinto tipo
   getNameDifferentSuit(hand){
 
     const keys = Object.keys(hand);
@@ -205,6 +209,7 @@ class Poker {
 
   }
 
+  // retorna el nombre y los valores de la mano ganadora si las cartas son de igual tipo
   getNameSameSuit(hand){
     if(hand[0]==="10" && hand[4]==="14"){
       return {
@@ -264,7 +269,6 @@ class App extends Component {
       this.handlerGetCards(52);
     })
     .catch(e=>{
-      console.log(">>>> error al start ",e);
       this.handlerStart();
     });
   }
@@ -285,8 +289,6 @@ class App extends Component {
   }
 
   render() {
-
-    console.log("state ",this.state);
 
     if (this.state.ready===false)
       return <div className="loading">Loading...</div>
