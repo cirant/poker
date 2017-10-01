@@ -117,6 +117,8 @@ my-app/
     index.html
     favicon.ico
   src/
+    components/
+    styles/
     App.css
     App.js
     App.test.js

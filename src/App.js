@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ShowHandComponent from './components/showHandComponent';
-import './App.css';
+import './styles/App.css';
 
 class Dealer {
   constructor(data) {
