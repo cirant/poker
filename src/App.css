@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: table;
+  width: 100%;
 }
 
 .App-logo {
@@ -21,4 +23,130 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+html, body, div, span, applet, object, iframe, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body{
+  background: #124242;
+}
+
+.players-zone{
+  display: block;
+}
+
+.loading{
+  display: block;
+  font-size: 28px;
+  position: absolute;
+  left: calc(50% - 61px);
+  top: calc(50% - 14px);
+}
+
+.player-container{
+  border: 1px solid black;
+  display: inline-block;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+}
+
+.player-title{
+  clear: both;
+  text-align: left;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-container{
+  margin-top: 50px;
+}
+.btn{
+  padding: 0px 16px;
+  margin: 8px;
+  line-height: 38px;
+  border-radius: 3px;
+  background: #245cf9;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.hand{
+  display: inline-block;
+  padding: 10px;
+}
+
+.card{
+  background: white;
+  display: inline-block;
+  height: 120px;
+  width: 90px;
+  margin: 8px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+  position: relative;
+}
+
+.card.hearts,.card.diamonds{
+  color: red;
+}
+
+.card::after{
+  position: absolute;
+  content: attr(data-value);
+  left: 5px;
+  top: 5px;
+  width: 18px;
+}
+
+.card::before{
+  position: absolute;
+  content: attr(data-value);
+  right: 5px;
+  bottom: 5px;
+  width: 18px;
+  transform: rotate(180deg)
 }

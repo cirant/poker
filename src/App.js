@@ -289,27 +289,37 @@ class App extends Component {
     console.log("state ",this.state);
 
     if (this.state.ready===false)
-      return <div>Loading...</div>
+      return <div className="loading">Loading...</div>
 
 
     return (
       <div className="App">
 
-        <h2>{
-          this.state.winner.hand.length===1? "winner": "winners"
-        }</h2>
+        <h1>{
+          this.state.winner.hand.length===1? "winner: ": "winners: "
+        }
+        {this.state.winner.name}
+        </h1>
 
         {
           this.state.winner.hand.map((hand,i)=><ShowHandComponent key={`winner-${i}`} hand={hand} />)
         }
 
-        <h1>{this.state.winner.name}</h1>
+        <div className="players-zone">
+          <div className="player-container">
+            <p className="player-title">player 1</p>
+            <ShowHandComponent hand={this.state.hand_a} />
+          </div>
+          <div className="player-container">
+            <p className="player-title">player 2</p>
+            <ShowHandComponent hand={this.state.hand_b} />
+          </div>
+        </div>
 
-        <ShowHandComponent hand={this.state.hand_a} />
-        <ShowHandComponent hand={this.state.hand_b} />
-
-        <button onClick={()=>this.cards.length>20? this.handleMakeHand() : this.handlerStart()}>next hand</button>
-        <button onClick={this.handlerStart}>new Game</button>
+        <div className="btn-container">
+          <button className="btn" title="next hand" onClick={()=>this.cards.length>20? this.handleMakeHand() : this.handlerStart()}>next hand</button>
+          <button className="btn" title="get 52 new cards" onClick={this.handlerStart}>new Game</button>
+        </div>
       </div>
     );
   }
