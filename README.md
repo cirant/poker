@@ -119,10 +119,10 @@ my-app/
   src/
     components/
     styles/
-    App.css
+      App.css
+      index.css
     App.js
     App.test.js
-    index.css
     index.js
     logo.svg
 ```
