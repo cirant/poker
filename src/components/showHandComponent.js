@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 const ShowHandComponent = ({hand}) => {
@@ -19,6 +20,15 @@ const ShowHandComponent = ({hand}) => {
       </ul>
     );
 
+}
+
+ShowHandComponent.propTypes = {
+    hand : PropTypes.arrayOf(
+      PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        suit: PropTypes.string.isRequired
+      })
+    ).isRequired
 }
 
 export default ShowHandComponent;
